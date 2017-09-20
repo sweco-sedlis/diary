@@ -1,0 +1,93 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<link rel="stylesheet" href="style/app.css">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+<div class="container">
+    <div><h2>Tidrapportering</h2></div>
+
+<form id='diary'>
+  <div class="form-group" >
+    <div class=row>
+      <div class="col-sm-2">
+        <label for="week">Week</label>
+        <input type="week" class="form-control" id="week" placeholder="What week?">
+      </div>
+      <div class="col-sm-2">
+        <label for="Date">Week</label>
+        <input type="date" class="form-control" id="date" placeholder="What date?">
+      </div>
+    </div>
+    <div class=row>
+      <div class="col-sm-1">
+        <label for="time_from">Time fr:</label>
+        <input type="time" class="form-control" id="time_from" placeholder="What week?">
+      </div>
+      <div class="col-sm-1">
+        <label for="time_to">Time to:</label>
+        <input type="time" class="form-control" id="time_to" placeholder="What week?">
+      </div>
+      <div class="col-sm-2">
+        <label for="time_dur">Time (Duration)</label>
+        <input type="number" class="form-control" id="time_dur" placeholder="Time in minutes">
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class=row>
+      <div class="col-sm-2">
+        <label for="combobox_input_nbr">Project number</label>
+        <div class="proj_list">
+          <select type="text" class="form-control" id="combobox_select_nbr" placeholder="">
+            <option value="test">5050</option>
+            <option value="0909">0909</option>
+          </select>
+          <input type="text" class="form-control" id="combobox_input_nbr" placeholder="" list="suggestions">
+          <datalist id="suggestions">
+          </datalist>
+        </div>
+      </div>
+      <div class="col-sm-2">
+        <label for="proj_name">Project name</label>
+        <select type="text" class="form-control" id="proj_name" placeholder="" value="hej">
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class=row>
+      <div class="col-sm-4">
+        <label for="descript">Description</label>
+        <input type="text" class="form-control form-control-lg" id="descript" placeholder="">
+      </div>
+    </div>
+    <div class=row>
+      <div class="col-sm-4">
+        <label for="comment">Comments</label>
+        <input type="text" class="form-control" id="comment" placeholder="">
+      </div>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</div>
+
+
+<script src="js/config.js"></script>
+<script src="js/webServices.js"></script>
+<script src="js/dataRemote.js"></script>
+<script src="js/app.js"></script>
+
+
+
+
+</body>
+</html>

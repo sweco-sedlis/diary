@@ -1,0 +1,5 @@
+$.diary = {}
+
+$.diary.Config = function () {
+
+}
