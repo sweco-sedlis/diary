@@ -1,24 +1,25 @@
 //import webServices from './../js/webServises.js'
-
 $.diary.app = function () {
+  var self = this
+  self.proj_nbr = []
+  this.init()
 }
 
 
-$.diary.proj_nbr = [] // projcts (nbr) currently in db
+$.diary.proj_nbr = null // projcts (nbr) currently in db
 
 
 
-$.diary.app.insertProjectSuccessCallback = function (result) {
+$.diary.insertProjectSuccessCallback = function (result) {
   console.log(result)
 }
 
-$.diary.app.getyProjectByNbrSuccessCallback = function (result) {
+$.diary.getyProjectByNbrSuccessCallback = function (result) {
   // TODO: if (result === empyt) {}
   var self = this
   $.each(result.project, function(i, proj) {
-    $.diary.proj_nbr.push(proj.proj_nbr)
+    self.proj_nbr.push(proj.proj_nbr)
   })
-  self.loadData()
   return
 }
 
@@ -27,7 +28,7 @@ $.diary.app.getyProjectByNbrSuccessCallback = function (result) {
 $.diary.getAllProjects = function () {
   var self = this
   var proj_nbr = ''
-  $.diary.getProjectByNbr (proj_nbr, $.diary.app.getyProjectByNbrSuccessCallback, self)
+  self.getProjectByNbr (proj_nbr, self.getyProjectByNbrSuccessCallback, self)
 }
 
 $.diary.loadData = function () {
@@ -36,41 +37,13 @@ $.diary.loadData = function () {
 }
 
 
-
-var data =
-{
- "project" : [
-    {
-       "proj_nbr" : "0213213",
-       "proj_name" : "LISETTE",
-       "proj_id" : "23"
-    },
-    {
-       "proj_nbr" : "000",
-       "proj_name" : "LISETTE",
-       "proj_id" : "24"
-    }
-  ]
-}
-
-$.diary.proj_data = data.project
-/*
-$.each(proj_data, function (projects, proj) {
-    $('#proj_nbr').append($('<option>', {
-      text: proj.proj_nbr
-    }))
-    $('#proj_name').append($('<option>', {
-      text: proj.proj_name
-    }))
-}) */
-
 $('#proj_nbr').keyup(function () {
+  var self = this
 //  alert('wqer')
   var value = $('#proj_nbr').val()
-  var match = []
   var result = matchRegex(value)
   if (result !== []) {
-    self.addToSelect(result)
+    $.diary.addToSelect(result)
   } else {
     clearSelect()
   }
@@ -79,9 +52,9 @@ $('#proj_nbr').keyup(function () {
 
 matchRegex = function (value) {
   var self = this
-  var match = []
+  var match = [1,2,3]
   $.each($.diary.proj_nbr, function (projects, proj) { //känner inte av denna instansen av $.diary.proj_nbr
-    var is_match = proj.proj_nbr.match(value)
+    var is_match = proj.match(value) //funkar ej
     if(is_match !== null) {
       match.push(is_match.input)
     }
@@ -106,8 +79,15 @@ clearSelect = function () {
   $.diary.proj_nbr = []
 }
 
-$.diary.getAllProjects()
+$.diary.init = function () {
+  var self = this
+  self.getAllProjects()
+  self.addToSelect($.diary.proj_nbr)
+}
 
+$.diary.app()
+
+/*
 
 $('#diary').submit(function (event) {
   event.preventDefault()
@@ -126,10 +106,10 @@ $('#diary').submit(function (event) {
  $.form.descript = $.form.find('#descript').val()
  $.form.comment = $.form.find('#comment').val()
 
-/*
+
 var ws = new webServices()
 ws.insertProject($.form.proj_nbr, $.form.proj_name, $.diary.app.insertProjectSuccessCallback)
-*/
+
 
  $.diary.getProjectByNbr ($.form.proj_nbr, $.diary.app.insertProjectSuccessCallback)
 
@@ -139,4 +119,4 @@ ws.insertProject($.form.proj_nbr, $.form.proj_name, $.diary.app.insertProjectSuc
  event.preventDefault()
  return false
 
-})
+}) */
