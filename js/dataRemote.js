@@ -1,6 +1,8 @@
 $.diary.dataRemote = function () { // Constructor
 }
 
+
+
 $.diary.insertProject = function (proj_nbr, proj_name, successFunction) {
 
   var token = 'token=fa5480eb054335846428cf2d833f8b8b91b9dfce'
@@ -35,7 +37,7 @@ $.diary.insertProject = function (proj_nbr, proj_name, successFunction) {
 }
 
 
-$.diary.getProjectByNbr = function (proj_nbr, successFunction) {
+$.diary.getProjectByNbr = function (proj_nbr, successFunction, context) {
 
   var token = 'token=fa5480eb054335846428cf2d833f8b8b91b9dfce'
   var opt_resp = 'opt_responseformat=json'
@@ -46,7 +48,7 @@ $.diary.getProjectByNbr = function (proj_nbr, successFunction) {
     url: serviceUrl,
     contentType: 'application/json',
     success: (result) => {
-      successFunction.call(result)
+      successFunction.call(context, result)
     },
     error: (error) => {
       console.log(error)

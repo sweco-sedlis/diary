@@ -3,9 +3,39 @@
 $.diary.app = function () {
 }
 
-  $.diary.app.insertProjectSuccessCallback = function (result) {
-    console.log(result)
-  }
+
+$.diary.proj_nbr = [] // projcts (nbr) currently in db
+
+
+
+$.diary.app.insertProjectSuccessCallback = function (result) {
+  console.log(result)
+}
+
+$.diary.app.getyProjectByNbrSuccessCallback = function (result) {
+  // TODO: if (result === empyt) {}
+  var self = this
+  $.each(result.project, function(i, proj) {
+    $.diary.proj_nbr.push(proj.proj_nbr)
+  })
+  self.loadData()
+  return
+}
+
+
+
+$.diary.getAllProjects = function () {
+  var self = this
+  var proj_nbr = ''
+  $.diary.getProjectByNbr (proj_nbr, $.diary.app.getyProjectByNbrSuccessCallback, self)
+}
+
+$.diary.loadData = function () {
+  var self = this
+  $.diary.addToSelect($.diary.proj_nbr)
+}
+
+
 
 var data =
 {
@@ -34,13 +64,13 @@ $.each(proj_data, function (projects, proj) {
     }))
 }) */
 
-$('#combobox_input_nbr').keyup(function () {
+$('#proj_nbr').keyup(function () {
 //  alert('wqer')
-  var value = $('#combobox_input_nbr').val()
+  var value = $('#proj_nbr').val()
   var match = []
   var result = matchRegex(value)
   if (result !== []) {
-    addToSelect(result)
+    self.addToSelect(result)
   } else {
     clearSelect()
   }
@@ -48,11 +78,12 @@ $('#combobox_input_nbr').keyup(function () {
 })
 
 matchRegex = function (value) {
+  var self = this
   var match = []
-  $.each($.diary.proj_data, function (projects, proj) {
+  $.each($.diary.proj_nbr, function (projects, proj) { //känner inte av denna instansen av $.diary.proj_nbr
     var is_match = proj.proj_nbr.match(value)
     if(is_match !== null) {
-      match.push(is_match)
+      match.push(is_match.input)
     }
   })
   return (match)
@@ -60,22 +91,22 @@ matchRegex = function (value) {
 
 
 
-addToSelect = function (match) {
+$.diary.addToSelect = function (projects) {
+  var self = this
   clearSelect()
-  match.forEach(function (match_val) {
-    $('#combobox_select_nbr').append($('<option>', {
-      text: match_val.input
+  projects.forEach(function (proj) {
+    $('#suggestions_nbr').append($('<option>', {
+      value: proj
     }))
   })
-  $('#combobox_select_nbr').show()
 }
 
 clearSelect = function () {
-//  $.each($('#combobox_select_nbr')[0], function (i) {
-//    $('#combobox_select_nbr').remove()
-  //})
+  $('#suggestions_nbr').empty()
+  $.diary.proj_nbr = []
 }
 
+$.diary.getAllProjects()
 
 
 $('#diary').submit(function (event) {
